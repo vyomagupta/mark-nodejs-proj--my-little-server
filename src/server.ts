@@ -1,5 +1,6 @@
 import express from "express";
 import ponyData from "../data/ponies.json";
+import helloData from "../data/hello.json"
 import { seasonOneEpisodes } from "./episodes";
 import { pickRandom } from "./random";
 
@@ -55,6 +56,16 @@ app.get("/ponies", (req, res) => {
     countedAsHit: false,
   });
 });
+
+app.get("/hello", (req, res) => {
+  res.json({
+    message: "Loaded dummy JSON data:",
+    data: helloData,
+    countedAsHit: false,
+  });
+});
+
+
 
 app.get("/season-one", (req, res) => {
   res.json({

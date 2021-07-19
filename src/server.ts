@@ -34,6 +34,7 @@ app.get("/current-time", (req, res) => {
 
 app.get("/hits", (req, res) => {
   serverHitCount += 1;
+  routeHistory.push(req.url)
   res.json({
     note: "We've registered your hit!",
     currentTotal: serverHitCount,
@@ -82,8 +83,29 @@ app.get("/season-one/random", (req, res) => {
   });
 });
 
+app.get("/ponies/random", (req, res) => {
+  const randomPony = pickRandom(ponyData.members);
+  res.json({
+    countedAsHit: false,
+    data: randomPony,
+  });
+});
+
+
+let routeHistory:string[] = []
+app.get("/history", (req, res) => {
+  routeHistory.push(req.url)
+  res.json({
+    routes: routeHistory
+  });
+});
+
+
+
+
+
 // using 4000 by convention, but could be changed
-const PORT_NUMBER = 4000;
+const PORT_NUMBER = 5050;
 
 app.listen(PORT_NUMBER, () => {
   console.log(
